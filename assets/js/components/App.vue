@@ -42,7 +42,7 @@ export default {
   name: "App",
   props: {},
   data: () => ({
-    datos: { 0: { id: "0", name: "jose", lastname: "rodriguez", age: "16" } , 1: { id: "0", name: "jose", lastname: "rodriguez", age: "16" } },
+    datos: {},
   }),
   methods: {
     editar: function () {
@@ -51,6 +51,11 @@ export default {
     eliminar: function (item) {
       console.log(item);
     },
+  },
+  mounted() {
+    fetch("http://127.0.0.1:8000/usuario")
+      .then((response) => response.json())
+      .then((data) => this.datos = data);
   },
 };
 </script>

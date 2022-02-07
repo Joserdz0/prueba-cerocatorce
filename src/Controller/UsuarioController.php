@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UsuarioController extends AbstractController
@@ -17,6 +18,7 @@ class UsuarioController extends AbstractController
     {
         $this->userRepository = $userRepository;
     }
+
     #[Route('/usuario/{id}', name: 'getUser', methods: ['GET','HEAD'])]
     public function get($id): JsonResponse
     {
@@ -52,5 +54,14 @@ class UsuarioController extends AbstractController
 
         return new JsonResponse($data, Response::HTTP_OK);
 
+    }
+    #[Route('/usuario/{id}', name: 'elimUser', methods: ['PUT','HEAD'])]
+    public function elimUser($id, Request $request): JsonResponse
+    {
+        $user = $this->userRepository->findOneBy(['id' => $id]);
+        $data = json_decode($request->getContent(), true);
+        empty($data) ? true : $user->setStatus(0);
+        $updatedUser = $this->userRepository->elimUsuario($user);
+        return new JsonResponse(['status' => 'Usuario eliminado'], Response::HTTP_OK);
     }
 }

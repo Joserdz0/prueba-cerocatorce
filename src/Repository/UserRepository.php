@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\EntityManagerInterface;
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -14,9 +14,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,EntityManagerInterface $manager)
     {
         parent::__construct($registry, User::class);
+        $this->manager = $manager;
     }
 
     // /**
@@ -33,5 +34,12 @@ class UserRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    //Nota:NO se elimina por completo el usuario solo se deja de mostrar
+    public function elimUsuario(User $user): User
+    {
+        $this->manager->persist($user);
+        $this->manager->flush();
 
+        return $user;
+    }
 }

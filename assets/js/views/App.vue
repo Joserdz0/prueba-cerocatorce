@@ -9,7 +9,7 @@
         ></v-app-bar-nav-icon
       >
 
-      <v-toolbar-title>Prueba cerocatorce</v-toolbar-title>
+      <v-toolbar-title>Prueba cerocatorce Jose Antonio Rodriguez Rivera</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

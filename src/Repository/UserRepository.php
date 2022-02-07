@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -14,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry,EntityManagerInterface $manager)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)
     {
         parent::__construct($registry, User::class);
         $this->manager = $manager;
@@ -31,8 +32,7 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('val', 1)
             ->orderBy('u.id', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
     //Nota:NO se elimina por completo el usuario solo se deja de mostrar
     public function elimUsuario(User $user): User
@@ -41,5 +41,18 @@ class UserRepository extends ServiceEntityRepository
         $this->manager->flush();
 
         return $user;
+    }
+    public function crearUsuario($name, $lastname, $age)
+    {
+        $newUser = new User();
+
+        $newUser
+            ->setName($name)
+            ->setLastname($lastname)
+            ->setAge($age)
+            ->setStatus(1);
+
+        $this->manager->persist($newUser);
+        $this->manager->flush();
     }
 }

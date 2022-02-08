@@ -15,4 +15,11 @@ class FormController extends AbstractController
             'controller_name' => 'FormController',
         ]);
     }
+    #[Route('/form/editar/{id}', name: 'editform', methods: ['GET','HEAD'])]
+    public function crear(): Response
+    {
+        return $this->render('form/index.html.twig', [
+            'controller_name' => 'FormController',
+        ]);
+    }
 }

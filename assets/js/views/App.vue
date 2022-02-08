@@ -30,7 +30,7 @@
       <v-list nav dense>
         <v-list-item-group
           v-model="group"
-          active-class="deep-purple--text text--accent-4"
+          active-class="grey--text text--darken-4"
         >
           <router-link class="text-decoration-none" to="/">
             <v-list-item >

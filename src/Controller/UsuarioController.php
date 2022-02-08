@@ -74,4 +74,15 @@ class UsuarioController extends AbstractController
         $this->userRepository->crearUsuario($name, $lastname, $age);
         return new JsonResponse(['status' => 'Usuario creado'], Response::HTTP_OK);
     }
+    #[Route('/usuario/{id}/{name}/{lastname}/{age}', name: 'editUser', methods: ['PUT','HEAD'])]
+    public function editUser($id,$name,$lastname,$age, Request $request): JsonResponse
+    {
+        $user = $this->userRepository->findOneBy(['id' => $id]);
+        $data = json_decode($request->getContent(), true);
+        empty($data) ? true : $user->setName($name);
+        empty($data) ? true : $user->setLastname($lastname);
+        empty($data) ? true : $user->setAge($age);
+        $updatedUser = $this->userRepository->modifUsuario($user);
+        return new JsonResponse(['status' => 'Usuario modificado'], Response::HTTP_OK);
+    }
 }

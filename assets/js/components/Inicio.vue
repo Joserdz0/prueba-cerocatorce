@@ -17,7 +17,7 @@
               <td>{{ item.lastname }}</td>
               <td>{{ item.age }}</td>
               <td>
-                <v-icon class="icono" title="Editar" v-on:click="editar"
+                <v-icon class="icono" title="Editar" v-on:click="editar(item)"
                   >edit</v-icon
                 >
                 <v-icon
@@ -42,10 +42,11 @@ export default {
   data: () => ({
     datos: {},
     url: "http://127.0.0.1:8000/usuario",
+    urlOriginal: "http://127.0.0.1:8000/",
   }),
   methods: {
-    editar: function () {
-      alert("Hola");
+    editar: function (item) {
+      window.location.href = this.urlOriginal+"form/editar/"+item.id;
     },
     eliminar: function (item) {
       async function postData(url = "", data = {}) {

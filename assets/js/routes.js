@@ -18,6 +18,11 @@ const router = new VueRouter({
                 path: '/form/',
                 name: 'Form',
                 component: Form
+            },
+            {
+                path: '/form/editar/:id',
+                name: 'Edit',
+                component: Form
             }
         ]
 })
